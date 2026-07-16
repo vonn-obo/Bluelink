@@ -7,9 +7,10 @@
 
 export const CONFIG = {
   companyName: "Bluelink Technology",
-  tagline: "TODO: one-line tagline for Bluelink Technology",
+  // Draft copy — replace with approved client copy when available.
+  tagline: "Every system your business runs on, on one link.",
   description:
-    "TODO: 1-2 sentence description of Bluelink as the umbrella tech company (CCTV is one of its services).",
+    "Bluelink is Iloilo's technology partner for growing businesses — starting with Iloilo CCTV, our security camera supply and installation service, with more solutions coming online.",
 
   // Contact details
   phone: "+639XXXXXXXXX", // TODO
@@ -39,10 +40,12 @@ export const CONFIG = {
     {
       slug: "cctv",
       name: "Iloilo CCTV",
-      summary: "TODO: CCTV supply + installation — short summary",
+      // Draft copy — replace with approved client copy when available.
+      summary: "CCTV supply, installation, and monitoring setup for homes and businesses across Iloilo.",
       icon: "Camera",
+      status: "online",
     },
-    // TODO: add other Bluelink service lines here
+    // TODO: add other Bluelink service lines here (set status: "soon" for unlaunched ones)
   ],
 
   social: {

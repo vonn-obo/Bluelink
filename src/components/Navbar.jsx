@@ -12,7 +12,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link to="/" className="text-lg font-semibold tracking-tight text-foreground">
+        <Link to="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-foreground">
+          <span className="inline-block size-1.5 rounded-full bg-signal" />
           {CONFIG.companyName}
         </Link>
 
