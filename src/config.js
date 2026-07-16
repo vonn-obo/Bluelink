@@ -35,7 +35,7 @@ export const CONFIG = {
 
   // Services offered under the Bluelink umbrella — drives Services.jsx / Home.jsx.
   // `icon` must have a matching entry in the ICONS map in src/components/ServicesGrid.jsx.
-  // `shortLabel` is used in the compact NodeMap diagram; `name` is used everywhere else.
+  // `shortLabel` is reserved for compact UI; `name` is used everywhere else.
   services: [
     {
       slug: "web-development",

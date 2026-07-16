@@ -1,14 +1,31 @@
+import { useRef, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import NodeMap from "@/components/NodeMap";
+import Magnetic from "@/components/Magnetic";
 import { CONFIG, LINKS } from "@/config";
 
+// Three.js/R3F/drei are ~900kB — split into their own chunk so only
+// Home (which renders this scene) pays that cost.
+const NetworkScene = lazy(() => import("@/components/three/NetworkScene"));
+
 export default function Hero() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const sceneOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+
   return (
-    <section className="overflow-hidden border-b border-border">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
-        <div>
+    <section ref={sectionRef} className="relative overflow-hidden border-b border-border">
+      <div className="gradient-mesh" />
+
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 px-4 py-20 lg:grid-cols-[1.1fr_1fr] lg:py-28">
+        <motion.div style={{ y: textY, opacity: textOpacity }}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,26 +58,33 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.15 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="mt-8 flex flex-wrap items-center gap-4"
           >
-            <Button asChild size="lg">
-              <a href={LINKS.messenger} target="_blank" rel="noopener noreferrer">
-                Message us
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link to="/services">See services</Link>
-            </Button>
+            <Magnetic>
+              <Button asChild size="lg">
+                <a href={LINKS.messenger} target="_blank" rel="noopener noreferrer">
+                  Message us
+                </a>
+              </Button>
+            </Magnetic>
+            <Magnetic strength={0.25}>
+              <Button asChild size="lg" variant="outline">
+                <Link to="/services">See services</Link>
+              </Button>
+            </Magnetic>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          style={{ opacity: sceneOpacity }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto w-full max-w-sm lg:max-w-none"
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="relative h-[340px] w-full sm:h-[420px] lg:h-[480px]"
         >
-          <NodeMap />
+          <Suspense fallback={null}>
+            <NetworkScene />
+          </Suspense>
         </motion.div>
       </div>
     </section>
