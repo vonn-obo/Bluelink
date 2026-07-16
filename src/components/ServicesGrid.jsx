@@ -49,7 +49,7 @@ export default function ServicesGrid() {
           className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           style={{ perspective: 1200 }}
         >
-          {CONFIG.services.map((service, i) => {
+          {CONFIG.services.map((service) => {
             const Icon = ICONS[service.icon] ?? Zap;
             return (
               <motion.div key={service.slug} variants={item}>
@@ -68,11 +68,6 @@ export default function ServicesGrid() {
 
                       <h3 className="mt-5 font-medium text-foreground">{service.name}</h3>
                       <p className="mt-1.5 text-sm text-muted-foreground">{service.summary}</p>
-
-                      <span className="mt-5 inline-flex w-fit items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-signal">
-                        <span className="size-1.5 rounded-full bg-signal" />
-                        Node {String(i + 1).padStart(2, "0")} · Online
-                      </span>
                     </div>
                   </TiltCard>
                 </Link>

@@ -30,9 +30,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground"
+            className="font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground"
           >
-            <span className="inline-block size-1.5 rounded-full bg-signal" />
             Bluelink Technology · Iloilo City
           </motion.p>
 
