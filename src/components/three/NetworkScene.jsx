@@ -20,13 +20,17 @@ function spiralPosition(index, total, radius) {
 function GlowNode({ position, color, scale = 1 }) {
   return (
     <group position={position}>
+      {/* Lit core — meshStandardMaterial + emissive gives real shading (a
+          highlight + falloff), which is what actually reads as "3D" rather
+          than a flat-colored disc. */}
       <mesh scale={scale}>
-        <sphereGeometry args={[0.13, 20, 20]} />
-        <meshBasicMaterial color={color} />
+        <sphereGeometry args={[0.16, 32, 32]} />
+        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.55} roughness={0.3} metalness={0.4} />
       </mesh>
+      {/* Soft outer glow */}
       <mesh scale={scale}>
-        <sphereGeometry args={[0.3, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.18} depthWrite={false} />
+        <sphereGeometry args={[0.34, 16, 16]} />
+        <meshBasicMaterial color={color} transparent opacity={0.14} depthWrite={false} />
       </mesh>
     </group>
   );
@@ -58,12 +62,14 @@ function Scene({ reducedMotion }) {
       group.current.rotation.y += delta * 0.18;
     }
     const { x, y } = state.pointer;
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, y * 0.18, 0.04);
+    // Base tilt keeps the ring visibly 3/4-on even with the pointer centered —
+    // a dead-on camera angle is what made the previous version read as flat.
+    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, -0.32 + y * 0.18, 0.04);
     group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, -x * 0.12, 0.04);
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} rotation={[-0.32, 0, 0]}>
       <GlowNode position={[0, 0, 0]} color={PRIMARY} scale={1.6} />
       {nodes.map((pos, i) => {
         const hasService = Boolean(services[i]);
@@ -97,10 +103,13 @@ export default function NetworkScene() {
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ position: [0, 0, 6], fov: 42 }}
+      camera={{ position: [1.8, 1.1, 4.6], fov: 52 }}
       gl={{ alpha: true, antialias: true }}
       style={{ background: "transparent" }}
     >
+      <ambientLight intensity={0.55} />
+      <pointLight position={[4, 4, 4]} intensity={60} color="#ffffff" />
+      <pointLight position={[-3, -2, 3]} intensity={20} color={PRIMARY} />
       <Scene reducedMotion={reducedMotion} />
     </Canvas>
   );
