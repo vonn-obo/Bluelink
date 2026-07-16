@@ -1,8 +1,8 @@
 # Bluelink Technology — Website
 
-Website for **Bluelink Technology**, an Iloilo-based tech company. CCTV
-supply/installation (Iloilo CCTV) is one service offered under the Bluelink
-umbrella. Lead-gen site — inquiries route to Messenger/Viber.
+Website for **Bluelink Technology**, an Iloilo-based tech company. Lead-gen
+site — inquiries route to Messenger/Viber. Services are TBD; see
+`CONFIG.services` in `src/config.js`.
 
 React 19 + Vite + Tailwind v4 + shadcn (JSX, not TSX) + Framer Motion +
 react-router-dom. Deploys as a static SPA on Vercel.

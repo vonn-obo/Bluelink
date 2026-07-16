@@ -10,7 +10,7 @@ export const CONFIG = {
   // Draft copy — replace with approved client copy when available.
   tagline: "Every system your business runs on, on one link.",
   description:
-    "Bluelink is Iloilo's technology partner for growing businesses — starting with Iloilo CCTV, our security camera supply and installation service, with more solutions coming online.",
+    "Bluelink is Iloilo's technology partner for growing businesses — one link connecting every system you rely on. Our first services are coming online soon.",
 
   // Contact details
   phone: "+639XXXXXXXXX", // TODO
@@ -36,17 +36,8 @@ export const CONFIG = {
 
   // Services offered under the Bluelink umbrella — drives Services.jsx / Home.jsx.
   // `icon` must have a matching entry in the ICONS map in src/components/ServicesGrid.jsx.
-  services: [
-    {
-      slug: "cctv",
-      name: "Iloilo CCTV",
-      // Draft copy — replace with approved client copy when available.
-      summary: "CCTV supply, installation, and monitoring setup for homes and businesses across Iloilo.",
-      icon: "Camera",
-      status: "online",
-    },
-    // TODO: add other Bluelink service lines here (set status: "soon" for unlaunched ones)
-  ],
+  // TODO: add Bluelink service lines here (set status: "soon" for unlaunched ones)
+  services: [],
 
   social: {
     facebook: "", // TODO: full URL
