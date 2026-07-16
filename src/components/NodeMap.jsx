@@ -2,15 +2,11 @@ import { motion } from "framer-motion";
 import { CONFIG } from "@/config";
 
 // Signature visual: Bluelink as a hub with services as linked nodes.
-// Real services render solid + "online"; empty capacity renders as a
-// dashed ghost node rather than inventing a fake service name.
-const SLOTS = [
-  { angle: -38, radius: 132 },
-  { angle: 34, radius: 150 },
-  { angle: 98, radius: 128 },
-];
-
+// With real services, each renders solid + "online". With none, a few
+// dashed ghost slots show rather than inventing a fake service name.
 const HUB = { x: 160, y: 160 };
+const RADIUS = 128;
+const EMPTY_SLOT_ANGLES = [-90, 30, 150];
 
 function polar(angleDeg, radius) {
   const rad = (angleDeg * Math.PI) / 180;
@@ -18,9 +14,15 @@ function polar(angleDeg, radius) {
 }
 
 export default function NodeMap() {
-  const nodes = SLOTS.map((slot, i) => ({
-    ...polar(slot.angle, slot.radius),
-    service: CONFIG.services[i],
+  const services = CONFIG.services;
+  const angles =
+    services.length > 0
+      ? services.map((_, i) => -90 + (360 / services.length) * i)
+      : EMPTY_SLOT_ANGLES;
+
+  const nodes = angles.map((angle, i) => ({
+    ...polar(angle, RADIUS),
+    service: services[i] ?? null,
   }));
 
   return (
@@ -37,7 +39,7 @@ export default function NodeMap() {
           strokeDasharray={node.service ? "0" : "4 4"}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 + i * 0.15, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: "easeOut" }}
         />
       ))}
 
@@ -49,7 +51,7 @@ export default function NodeMap() {
             fill="var(--color-signal)"
             initial={{ cx: HUB.x, cy: HUB.y, opacity: 0 }}
             animate={{ cx: [HUB.x, node.x], cy: [HUB.y, node.y], opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 2.2, delay: 1.2 + i * 0.4, repeat: Infinity, repeatDelay: 1.6, ease: "linear" }}
+            transition={{ duration: 2.2, delay: 1 + i * 0.3, repeat: Infinity, repeatDelay: 2 + services.length * 0.3, ease: "linear" }}
           />
         ) : null
       )}
@@ -60,7 +62,7 @@ export default function NodeMap() {
         transition={{ duration: 0.4, type: "spring" }}
         style={{ transformOrigin: `${HUB.x}px ${HUB.y}px` }}
       >
-        <circle cx={HUB.x} cy={HUB.y} r="30" className="fill-primary" />
+        <circle cx={HUB.x} cy={HUB.y} r="28" className="fill-primary" />
         <text x={HUB.x} y={HUB.y + 4} textAnchor="middle" className="fill-primary-foreground font-mono text-[9px] font-medium">
           LINK
         </text>
@@ -71,25 +73,25 @@ export default function NodeMap() {
           key={`node-${i}`}
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.35, delay: 0.9 + i * 0.15, type: "spring" }}
+          transition={{ duration: 0.35, delay: 0.7 + i * 0.1, type: "spring" }}
           style={{ transformOrigin: `${node.x}px ${node.y}px` }}
         >
           <circle
             cx={node.x}
             cy={node.y}
-            r="20"
+            r="18"
             className={node.service ? "fill-card stroke-primary" : "fill-card stroke-border"}
             strokeWidth="1.5"
             strokeDasharray={node.service ? "0" : "3 3"}
           />
-          {node.service && <circle cx={node.x + 13} cy={node.y - 13} r="3.5" className="fill-signal" />}
+          {node.service && <circle cx={node.x + 12} cy={node.y - 12} r="3" className="fill-signal" />}
           <text
             x={node.x}
-            y={node.y + (node.service ? 32 : 34)}
+            y={node.y + (node.service ? 30 : 32)}
             textAnchor="middle"
-            className={node.service ? "fill-foreground font-mono text-[8px] font-medium" : "fill-muted-foreground font-mono text-[8px]"}
+            className={node.service ? "fill-foreground font-mono text-[7px] font-medium" : "fill-muted-foreground font-mono text-[7px]"}
           >
-            {node.service ? node.service.name.toUpperCase() : "SOON"}
+            {node.service ? (node.service.shortLabel ?? node.service.name).toUpperCase() : "SOON"}
           </text>
         </motion.g>
       ))}

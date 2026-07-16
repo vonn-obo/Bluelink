@@ -7,10 +7,9 @@
 
 export const CONFIG = {
   companyName: "Bluelink Technology",
-  // Draft copy — replace with approved client copy when available.
   tagline: "Every system your business runs on, on one link.",
   description:
-    "Bluelink is Iloilo's technology partner for growing businesses — one link connecting every system you rely on. Our first services are coming online soon.",
+    "We're committed to delivering business solutions that create better experiences for you and your customers.",
 
   // Contact details
   phone: "+639XXXXXXXXX", // TODO
@@ -36,8 +35,57 @@ export const CONFIG = {
 
   // Services offered under the Bluelink umbrella — drives Services.jsx / Home.jsx.
   // `icon` must have a matching entry in the ICONS map in src/components/ServicesGrid.jsx.
-  // TODO: add Bluelink service lines here (set status: "soon" for unlaunched ones)
-  services: [],
+  // `shortLabel` is used in the compact NodeMap diagram; `name` is used everywhere else.
+  services: [
+    {
+      slug: "web-development",
+      name: "Web Development",
+      shortLabel: "Web Dev",
+      summary: "Websites and web applications built for your business.",
+      icon: "Globe",
+      status: "online",
+    },
+    {
+      slug: "mobile-development",
+      name: "Mobile Development",
+      shortLabel: "Mobile Dev",
+      summary: "iOS and Android apps for your customers.",
+      icon: "Smartphone",
+      status: "online",
+    },
+    {
+      slug: "staff-augmentation",
+      name: "Staff Augmentation",
+      shortLabel: "Staff Aug",
+      summary: "Skilled developers embedded in your team.",
+      icon: "Users",
+      status: "online",
+    },
+    {
+      slug: "product-design",
+      name: "Product Design",
+      shortLabel: "UX Design",
+      summary: "UI/UX design for digital products.",
+      icon: "Palette",
+      status: "online",
+    },
+    {
+      slug: "custom-software-development",
+      name: "Custom Software Development",
+      shortLabel: "Custom SW",
+      summary: "Bespoke software built around your workflow.",
+      icon: "Code2",
+      status: "online",
+    },
+    {
+      slug: "branding",
+      name: "Branding",
+      shortLabel: "Branding",
+      summary: "Visual identity and brand systems.",
+      icon: "Sparkles",
+      status: "online",
+    },
+  ],
 
   social: {
     facebook: "", // TODO: full URL

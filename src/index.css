@@ -5,9 +5,9 @@
 
 /*
   Token system — grounded in "Bluelink" as a network/connectivity brand:
-  cobalt link-blue + signal-green (an "online" status color, apt for a
-  company whose flagship service is live CCTV monitoring), on a light
-  paper background. Deliberately not the dark-mode-acid-accent default.
+  cobalt link-blue + signal-green (an "online"/status indicator color),
+  on a light paper background. Deliberately not the dark-mode-acid-accent
+  default.
 */
 :root {
   --radius: 0.5rem;

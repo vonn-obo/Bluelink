@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Zap } from "lucide-react";
+import { Zap, Globe, Smartphone, Users, Palette, Code2, Sparkles } from "lucide-react";
 import { CONFIG } from "@/config";
 
 // Add an entry here whenever a new icon name is used in CONFIG.services.
-const ICONS = { Zap };
+const ICONS = { Zap, Globe, Smartphone, Users, Palette, Code2, Sparkles };
 
 const item = {
   hidden: { opacity: 0, x: -12 },
